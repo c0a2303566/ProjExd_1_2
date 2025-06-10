@@ -23,17 +23,34 @@ def main():
     pg.draw.circle(enn, (255, 0, 0), (10, 10), 10)
     enn.set_colorkey((0, 0, 0))
     l_bg = pg.transform.flip(bg_img,True,False)
+    koukaton = image3.get_rect()
+    koukaton.center=300,200 
     scrool_speed = 1
     tmr = 0
     while True:
-        screen.blit(bg_img, [0,0])
-        screen.blit(image3,[300,200])
-        bg_x -= scrool_speed
+        x = tmr%3200
         for event in pg.event.get():
-            if event.type == pg.QUIT: return
+            if event.type == pg.QUIT:
+                return
+
+        bg_x -= scrool_speed
+        
+        key_lst = pg.key.get_pressed()
+        if key_lst[pg.K_UP]:
+            koukaton.move_ip((0,-1))
+        if key_lst[pg.K_DOWN]:
+            koukaton.move_ip((0, +1)) 
+        if key_lst[pg.K_LEFT]:
+            koukaton.move_ip((-1, 0))
+        if key_lst[pg.K_RIGHT]:
+            koukaton.move_ip((+1, 0))           
+                    
         screen.blit(bg_img, [bg_x, bg_y])
-        screen.blit(bg_img, [bg_x + bg_img.get_width(), 0])
-        screen.blit(image3,[300,200])
+        screen.blit(l_bg, [-x+1600,bg_y])
+        
+        screen.blit(bg_img, [-x+3200,0])
+        screen.blit(bg_img, [-x,0])
+        screen.blit(image3, koukaton)
         pg.display.update()
         tmr += 1        
         clock.tick(200)
