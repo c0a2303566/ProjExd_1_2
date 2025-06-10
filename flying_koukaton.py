@@ -32,19 +32,19 @@ def main():
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 return
-
-        bg_x -= scrool_speed
         
         key_lst = pg.key.get_pressed()
+        bg_x -= scrool_speed
+        move_x, move_y = 0, 0
         if key_lst[pg.K_UP]:
-            koukaton.move_ip((0,-1))
+            move_y -= 1
         if key_lst[pg.K_DOWN]:
-            koukaton.move_ip((0, +1)) 
+            move_y += 1
         if key_lst[pg.K_LEFT]:
-            koukaton.move_ip((-1, 0))
+            move_x -= 1
         if key_lst[pg.K_RIGHT]:
-            koukaton.move_ip((+1, 0))           
-                    
+            move_x += 3
+        koukaton.move_ip(move_x-scrool_speed,move_y)
         screen.blit(bg_img, [bg_x, bg_y])
         screen.blit(l_bg, [-x+1600,bg_y])
         
