@@ -20,17 +20,21 @@ def main():
     enn = pg.Surface((20, 20))
     pg.draw.circle(enn, (255, 0, 0), (10, 10), 10)
     enn.set_colorkey((0, 0, 0))
+    image3_x = 300
+    image3_y = 200
     
     tmr = 0
+    speed = 1
     while True:
         for event in pg.event.get():
             if event.type == pg.QUIT: return
         screen.blit(bg_img, [0, 0])
-        screen.blit(image3,[300,200])
+        image3_x -= speed
+        screen.blit(image3,[image3_x,image3_y])
         txt = font.render(str(tmr), True, (255, 255, 255))
-        # screen.fill((50, 50, 50))
+        # screen.fill((50, 51, 50))
         screen.blit(txt, [300, 200])
-        screen.blit(enn, [100, 400])
+        screen.blit(enn, [101, 400])
         pg.display.update()
         tmr += 1        
         clock.tick(200)
