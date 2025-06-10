@@ -14,27 +14,26 @@ def main():
     
     
     bg_img = pg.image.load("fig/pg_bg.jpg")
+    bg_x = 0
+    bg_y = 0
     image3 = pg.image.load("fig/3.png")
     image3 = pg.transform.flip(image3,True,False)
 
     enn = pg.Surface((20, 20))
     pg.draw.circle(enn, (255, 0, 0), (10, 10), 10)
     enn.set_colorkey((0, 0, 0))
-    image3_x = 300
-    image3_y = 200
-    
+    l_bg = pg.transform.flip(bg_img,True,False)
+    scrool_speed = 1
     tmr = 0
-    speed = 1
     while True:
+        screen.blit(bg_img, [0,0])
+        screen.blit(image3,[300,200])
+        bg_x -= scrool_speed
         for event in pg.event.get():
             if event.type == pg.QUIT: return
-        screen.blit(bg_img, [0, 0])
-        image3_x -= speed
-        screen.blit(image3,[image3_x,image3_y])
-        txt = font.render(str(tmr), True, (255, 255, 255))
-        # screen.fill((50, 51, 50))
-        screen.blit(txt, [300, 200])
-        screen.blit(enn, [101, 400])
+        screen.blit(bg_img, [bg_x, bg_y])
+        screen.blit(bg_img, [bg_x + bg_img.get_width(), 0])
+        screen.blit(image3,[300,200])
         pg.display.update()
         tmr += 1        
         clock.tick(200)
